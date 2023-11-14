@@ -2,13 +2,13 @@ import random
 import time
 import pyautogui
 import keyboard
-import requests
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import html5lib
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
+noBot = True
 repeat = False
 browser = webdriver.Chrome()
 #
@@ -42,18 +42,25 @@ page_source = browser.page_source
 
 soup = BeautifulSoup(page_source, 'html.parser')
 spans = soup.find_all('div', class_='word')
-words = ' '.join([span.get_text()for span in spans])
+words = ' '.join([span.get_text() for span in spans])
 for c in words:
-    if c=='z' or c=='x' or c=='c' or c=='v' or c=='b' or c=='n' or c=='m':
-        time.sleep(random.uniform(.2, .099))
+    if noBot:
+        if c == 'u' or c == 't':
+            time.sleep(.04)
+        elif c == 'm' or c == 'a':
+            time.sleep(.06)
+        elif c == 'n':
+            time.sleep(.01)
+        else:
+            time.sleep(.08)
     else:
-        time.sleep(random.uniform(.09, .05))
+        time.sleep(.0151)
     pyautogui.press(c, _pause=False)
 
-#pyautogui.typewrite(words)
+# pyautogui.typewrite(words)
 time.sleep(3)
 
-    #elem = browser.find_element(By.ID, 'nextTestButton')
-    #elem.click()
+# elem = browser.find_element(By.ID, 'nextTestButton')
+# elem.click()
 
 time.sleep(900)
