@@ -8,10 +8,17 @@ import html5lib
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-noBot = True
+noBot = False
 repeat = False
 browser = webdriver.Chrome()
 #
+def wordsToChars(wpm):
+    if wpm <201:
+        cpm = 1/((wpm*5)/60)
+    elif wpm >200:
+        cpm = 1/((wpm*5.4)/60)
+    return cpm
+
 
 URL = "https://monkeytype.com/account"
 browser.get(URL)
@@ -46,15 +53,15 @@ words = ' '.join([span.get_text() for span in spans])
 for c in words:
     if noBot:
         if c == 'u' or c == 't':
-            time.sleep(.04)
+            time.sleep(wordsToChars(53))
         elif c == 'm' or c == 'a':
-            time.sleep(.06)
+            time.sleep(wordsToChars(26))
         elif c == 'n':
-            time.sleep(.01)
+            time.sleep(wordsToChars(65))
         else:
-            time.sleep(.08)
+            time.sleep(wordsToChars(40))
     else:
-        time.sleep(.0151)
+        time.sleep(wordsToChars(700))
     pyautogui.press(c, _pause=False)
 
 # pyautogui.typewrite(words)
